@@ -1,0 +1,2 @@
+1. dip switch direction forward by default
+2. software reset
