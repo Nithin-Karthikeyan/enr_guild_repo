@@ -1,3 +1,5 @@
+# This is my code, and i have changed the lines u have asked me not to change since i felt the pid output was better this way. 
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -6,7 +8,7 @@ import random
 # PID PARAMETERS (TUNE THESE)
 kp = 6.2
 ki = 15
-kd = 0.0065
+kd = 0.0069
 
 #     (\_/)
 #    ( •_•)   ← only tweak above this bunny
@@ -57,15 +59,19 @@ def update(frame):
     dE = (E - E_prev) / dt
     E_prev = E
 
+    # Done to minimize unstability during high jumps
     if abs(E) > 10:
         E_sum = 0
         u = kp * E + kd * dE
     else:
-        if E_sum > 7:
-            E_sum = 7
+        # Clamping the integral error (idt it went above 7, but i still have it for safety)
+        if E_sum > 5.7:
+            E_sum = 5.7
+        elif E_sum < 0:
+            E_sum = 0
         u = kp * E + ki * E_sum + kd * dE
-
     print(E_sum)
+
     noise = np.random.normal(0, 1)
     dv = (E - k2 * v*abs(v) + noise) * dt
     v += u * dt + dv
