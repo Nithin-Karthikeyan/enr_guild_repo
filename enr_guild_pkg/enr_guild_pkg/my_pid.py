@@ -4,9 +4,9 @@ from matplotlib.animation import FuncAnimation
 import random
 
 # PID PARAMETERS (TUNE THESE)
-kp = 6
+kp = 6.2
 ki = 15
-kd = 0.005
+kd = 0.0065
 
 #     (\_/)
 #    ( •_•)   ← only tweak above this bunny
@@ -61,11 +61,11 @@ def update(frame):
         E_sum = 0
         u = kp * E + kd * dE
     else:
-        if E_sum > 100:
-            E_sum = 100
+        if E_sum > 7:
+            E_sum = 7
         u = kp * E + ki * E_sum + kd * dE
 
-
+    print(E_sum)
     noise = np.random.normal(0, 1)
     dv = (E - k2 * v*abs(v) + noise) * dt
     v += u * dt + dv
