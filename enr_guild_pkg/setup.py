@@ -25,8 +25,7 @@ setup(
         'talker = enr_guild_pkg.talker:main',
         'relay = enr_guild_pkg.relay:main',
         'circle = enr_guild_pkg.circle:main',
-        'webcam = enr_guild_pkg.webcam:main',
-        'bottle_rf = enr_guild_pkg.bottle_rf:main'
+        'webcam = enr_guild_pkg.webcam:main'
         ],
     },
 )
