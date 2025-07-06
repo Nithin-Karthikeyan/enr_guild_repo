@@ -12,6 +12,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', glob('launch/*.launch.py')),
+        ('share/' + package_name + '/urdf', glob('urdf/*.urdf')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -27,6 +28,7 @@ setup(
         'circle = enr_guild_pkg.circle:main',
         'webcam = enr_guild_pkg.webcam:main',
         'bottle_rf = enr_guild_pkg.bottle_rf:main',
+        'keyboard_control = enr_guild_pkg.keyboard_control:main',
         ],
     },
 )

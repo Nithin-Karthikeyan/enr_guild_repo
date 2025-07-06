@@ -8,18 +8,20 @@
                 <box size="1.0 0.5 0.2"/>
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
-            <color rgba="0 0.5 0.5 1"/>
+            <material name="teal">
+                <color rgba="0 0.5 0.5 1"/>
+            </material>
         </visual>
         <collision>
             <geometry>
                 <box size="1.0 0.5 0.2"/>
             </geometry>
-            <origin xyz="0 0 0" rpy="0 0 0">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
         </collision>
         <inertial>
-            <mass value="1.0">
+            <mass value="1.0"/>
             <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-        </inertia>
+        </inertial>
     </link>
 
     <!-- LEFT WHEEL -->
@@ -28,19 +30,20 @@
             <geometry>
                 <cylinder radius="0.1" length="0.05"/>
             </geometry>
-            <!-- Rotate cylinder 90deg around X axis -->
             <origin xyz="0 0 0" rpy="1.5708 0 0"/>
-            <color rgba="0 0 0 1"/>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
         </visual>
         <collision>
-        <geometry>
-            <cylinder radius="0.1" length="0.05"/>
-        </geometry>
-        <origin xyz="0 0.25 " rpy="1.5708 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <origin xyz="0 0.25 0" rpy="1.5708 0 0"/>
         </collision>
         <inertial>
-        <mass value="0.2"/>
-        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+            <mass value="0.2"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
         </inertial>
     </link>
 
@@ -51,18 +54,20 @@
                 <cylinder radius="0.1" length="0.05"/>
             </geometry>
             <origin xyz="0 0 0" rpy="1.5708 0 0"/>
-            <color rgba="0 0 0 1"/>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
         </visual>
         <collision>
             <geometry>
-                <box size="1.0 0.5 0.2"/>
+                <cylinder radius="0.1" length="0.05"/>
             </geometry>
-            <origin xyz="0 0 0" rpy="0 0 0">
+            <origin xyz="0 0.25 0" rpy="1.5708 0 0"/>
         </collision>
         <inertial>
-            <mass value="1.0">
-            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-        </inertia>
+            <mass value="0.2"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
     </link>
 
     <!-- CASTER WHEEL -->
@@ -72,21 +77,23 @@
                 <sphere radius="0.05"/>
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0"/>
-            <color rgba="1 0 1 1"/>
+            <material name="magenta">
+                <color rgba="1 0 1 1"/>
+            </material>
         </visual>
         <collision>
             <geometry>
-                <box size="1.0 0.5 0.2"/>
+                <sphere radius="0.05"/>
             </geometry>
-            <origin xyz="0 0 0" rpy="0 0 0">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
         </collision>
         <inertial>
-            <mass value="1.0">
-            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-        </inertia>
+            <mass value="0.05"/>
+            <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+        </inertial>
     </link>
 
-    <!-- LEFT WHEEL JOINT-->
+    <!-- LEFT WHEEL JOINT -->
     <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="left_wheel_link"/>
@@ -94,7 +101,7 @@
         <axis xyz="0 1 0"/>
     </joint>
 
-    <!-- RIGHT WHEEL JOINT-->
+    <!-- RIGHT WHEEL JOINT -->
     <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel_link"/>
@@ -102,12 +109,11 @@
         <axis xyz="0 1 0"/>
     </joint>
 
-    <!-- CASTER WHEEL JOINT-->
+    <!-- CASTER WHEEL JOINT -->
     <joint name="caster_wheel_joint" type="fixed">
         <parent link="base_link"/>
         <child link="caster_wheel_link"/>
         <origin xyz="0.3 0 -0.1" rpy="0 0 0"/>
-        <axis xyz="1 0 0"/>
     </joint>
 
 </robot>
