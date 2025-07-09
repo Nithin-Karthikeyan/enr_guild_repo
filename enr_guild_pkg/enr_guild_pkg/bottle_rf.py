@@ -20,7 +20,7 @@ class RoboflowDetectorNode(Node):
         self.bridge = CvBridge()
         
         # Timer for webcam mode (if not using image topic)
-        self.timer = self.create_timer(0.1, self.timer_callback)
+        self.timer = self.create_timer(0.001, self.timer_callback)
         
         # Initialize Roboflow model
         self.setup_roboflow_model()
@@ -29,7 +29,7 @@ class RoboflowDetectorNode(Node):
         self.cap = cv2.VideoCapture(0)
         
         # Parameters
-        self.confidence_threshold = 40
+        self.confidence_threshold = 50
         self.overlap_threshold = 30
         
         self.get_logger().info('Roboflow Detector Node initialized')
@@ -39,9 +39,9 @@ class RoboflowDetectorNode(Node):
         try:
             # Replace these with your actual values
             API_KEY = ""
-            WORKSPACE = ""
-            PROJECT = ""
-            VERSION =   # Your model version
+            WORKSPACE = "nithinws"
+            PROJECT = "water-bottles-2-yibe7"
+            VERSION = 1  # Your model version
             
             rf = Roboflow(api_key=API_KEY)
             project = rf.workspace(WORKSPACE).project(PROJECT)
@@ -90,16 +90,18 @@ class RoboflowDetectorNode(Node):
                 confidence=self.confidence_threshold, 
                 overlap=self.overlap_threshold
             ).json()
+            print(type(results))
             
             # Extract detection information
             detections = results.get('predictions', [])
             
             # Create detection message
             detection_data = {
-                'timestamp': self.get_clock().now().to_msg(),
+                'timestamp': str(self.get_clock().now().to_msg()),
                 'num_detections': len(detections),
                 'detections': []
             }
+            print(detection_data['timestamp'])
             
             # Process each detection
             for detection in detections:
@@ -120,7 +122,6 @@ class RoboflowDetectorNode(Node):
                 detection_info['distance_from_center'] = distance_from_center
                 
                 detection_data['detections'].append(detection_info)
-            
             # Publish detection results
             msg = String()
             msg.data = json.dumps(detection_data)
